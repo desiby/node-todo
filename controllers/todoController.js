@@ -1,12 +1,21 @@
 const bodyParser = require("body-parser");
-var data = [{item: "get milk"}, {item: "do laundry"}, {item: "pay bills"}];
+const mongojs = require("mongojs");
+const db = mongojs("todo",["todoCollection"])
+
 //bodyparser middleware
 var urlEncodedParser = bodyParser.urlencoded({extended: false});
 
 module.exports = function(app) {
  
     app.get("/todo", (req,res) => {
-       res.render("todo.ejs", {todos: data});
+       db.todoCollection.find((err,docs) =>{
+           if(err){
+               console.log(err);
+           }else{
+              res.render("todo.ejs", {todos: docs});
+           }
+       }) 
+       
     });
 
     app.post("/todo", urlEncodedParser, (req,res) => {
