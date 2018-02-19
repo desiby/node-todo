@@ -4,22 +4,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>todo list</title>
-    <script
-  src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-  integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
-  crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+       <script src="todo-list.js"></script>
+
   <link rel="stylesheet" type="text/css" href="styles.css"
 </head>
 <body>
+    <h1>my todos</h1>
     <div id="todo-table">
         <form>
             <input type="text" name="item" placeholder="add new item" required>
             <button type="submit">Add</button>
         </form>
        <ul>
-           <li>Item 1</li>
-           <li>Item 1</li>
-           <li>Item 1</li>
+           <% for (var i = 0; i < todos.length; i++) { %>
+               <li><%= todos[i].item %></li>
+           <% } %>
        </ul>
     </div>
 </body>
