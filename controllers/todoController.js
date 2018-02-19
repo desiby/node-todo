@@ -20,12 +20,4 @@ module.exports = function(app) {
         });
         res.json(data)
     });
-
-    app.delete("/todo", (req,res) => {
-        
-    });
-
-    app.put("/todo", (req,res) => {
-       
-    });
 }
