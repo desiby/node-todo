@@ -6,7 +6,7 @@ const db = mongojs("todo",["todoCollection"])
 var urlEncodedParser = bodyParser.urlencoded({extended: false});
 
 module.exports = function(app) {
- 
+    //get all todos
     app.get("/todo", (req,res) => {
        db.todoCollection.find((err,docs) =>{
            if(err){
@@ -18,15 +18,28 @@ module.exports = function(app) {
        
     });
 
+    //add a todo
     app.post("/todo", urlEncodedParser, (req,res) => {
-        data.push(req.body);
-        res.json(data);
+        db.todoCollection.insert({item: req.body.item}, (err)=> {
+            if (err){
+                throw err;
+            }else{
+                res.redirect("/todo");
+            }
+        });
     });
 
+    //delete a todo
     app.delete("/todo/:item", (req,res) => {
-        data = data.filter((todo) => {
-            return todo.item.replace(/ /g, "-") !== req.params.item;
+        db.todoCollection.remove({item: req.params.item.replace(/\-/g, " ")}, (err) => {
+            if (err){
+                throw err;
+            }else{
+                res.redirect("/todo");
+                
+            }
         });
-        res.json(data)
+        
     });
+
 }

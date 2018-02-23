@@ -5,13 +5,13 @@ const app = express();
 //set up template engine
 app.set("view engine", "ejs");
 
-//static files
+// use static files
 app.use(express.static("./public"))
 
 //fire controller
 todoController(app);
 
-//listen to port
+//start server
 app.listen(3000, () => {
   console.log("server started on port:3000")
 });
